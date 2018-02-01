@@ -5,6 +5,8 @@
 
 1.  	定向消息处理
 
+1.		流程处理
+
 1.  	强约束性，防止错误使用
 
 1.  	灵活多变，简单易用
@@ -35,9 +37,11 @@
 	        return self.user_list.get(id, None)
 
 #start.py
+
     Game(UserManager)   #父组件为Game,子组件为UserManager
     Component.initComponent() #初始化所有组件
     Game().invoke()   #组件是唯一的,所以组件本身就是一个单例,可通过()调用
+
     
 # 结果： #
     {'name': 'zhengfaning'}
@@ -46,10 +50,12 @@
 
 定向消息处理，消息是由顶至下的：
 #event.py
+
     class Event:
     	EXECUTE = 1
 
 #dog.py
+
     class Dog(Component):
 
 	    @RegiserEvent(Event.EXECUTE)                                     #注册消息execute
@@ -57,6 +63,7 @@
 	        print "dog, info =",info
 
 #cat.py
+
     class Cat(Component):
 	
 	    @RegiserEvent(Event.EXECUTE)                                      #注册消息execute
@@ -64,16 +71,19 @@
 	        print "cat, info =",info
 
 #root.py
+
     class Root(Component):
     	pass
     
 
 #start.py
+
     Root(Dog,Cat) #父组件为Root,子组件为Dog,Cat
     Component.initComponent() #初始化所有组件
     Root().onEvent(Event.EXECUTE, {"goods": "food"})
 
 # 结果: #
+
     dog, info = {'goods': 'food'}
     cat, info = {'goods': 'food'}
 
